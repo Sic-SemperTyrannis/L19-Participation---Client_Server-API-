@@ -47,8 +47,7 @@ if tasks:
     task_titles = {t["id"]: t["title"] for t in tasks}
 
     with st.sidebar.expander("✏️ Update Task"):
-        selected_id   = st.selectbox("Select task", task_ids,
-                            format_func=lambda i: f"#{i} {task_titles[i]}")
+        selected_id   = st.selectbox("Select task", task_ids, format_func=lambda i: f"#{i} {task_titles[i]}")
         selected_task = next(t for t in tasks if t["id"] == selected_id)
         upd_title = st.text_input("New title",       value=selected_task["title"])
         upd_desc  = st.text_area("New description",  value=selected_task["description"])
@@ -63,8 +62,7 @@ if tasks:
                 st.rerun()
 
     with st.sidebar.expander("🗑️ Delete Task"):
-        delete_task_id = st.selectbox("Select task to delete", task_ids,
-                     format_func=lambda i: f"#{i} {task_titles[i]}", key="delete_task_id") # streamlit passes each task_id/option into i
+        delete_task_id = st.selectbox("Select task to delete", task_ids, format_func=lambda i: f"#{i} {task_titles[i]}", key="delete_task_id") # streamlit passes each task_id/option into i
         if st.button("Delete Task", type="primary"):
             r = requests.delete(f"{API_URL}/tasks/{delete_task_id}")
 
